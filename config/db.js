@@ -1,20 +1,13 @@
-const mongoose=require('mongoose');
-mongoose.connect('mongodb+srv://bookstore_db:bookstore@cluster0.ws5g4dn.mongodb.net/');
+const mongoose = require("mongoose");
 
-const db=mongoose.connection;
+mongoose.connect('mongodb+srv://book-manager:book@cluster0.ws5g4dn.mongodb.net/');
+
+const db = mongoose.connection;
 
 db.on('error',(error)=>{
-    console.error("Error to connect the database",error)
-});
+    console.log('error to connecting with database')
+})
+
 db.once('open',function(){
-  console.log("successfully connected to the database")
-});
-
-/*
-module.exports = {
-  secretKey: 'your-secret-key',
-  databaseURL: 'mongodb://localhost/bookstore_db', // Change to your MongoDB URL
-  port: process.env.PORT || 3000,
-};
-
-*/
+    console.log('Successfully connected to database');
+})

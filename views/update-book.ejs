@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Book</title>
+</head>
+<body>
+    <h1>Update Book</h1>
+    
+    <!-- Display the book details for updating -->
+    <form action="/update-book" method="POST">
+        
+        <input type="text" placeholder="book name" value="<%= bookDetails.title %>">
+        
+            <input type="text" placeholder="author" value="<%= bookDetails.author %>">
+
+            <input type="text" placeholder="isbn" value="<%= bookDetails.isbn %>">
+            
+            <input type="number" placeholder="price" value="<%= bookDetails.price %>">
+            <input type="number" placeholder="quantity" value="<%= bookDetails.quantity %>">
+        
+        <button type="submit"><a href="/update-book">Update</a></button>
+    </form>
+
+    <a href="/all-books">Back to All Books</a>
+</body>
+</html>

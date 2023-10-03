@@ -1,10 +1,19 @@
 <html>
     <head>
         <title>Profile page</title>
+        <link rel="stylesheet" href="/styles/profile.css">
     </head>
     <body>
         <h1>Profile Page</h1>
         <p>Name: <%=user_details.name%></p>
         <p>Email: <%=user_details.email%></p>
+        <button><a href="/profile/get-books">Get All Books</a></button>
+        <button><a href="/get-add-book">Add Books</a></button>
+        <button><a href="/get-update-profile">To update your profile</a></button>
+        <button><a href="/my-carts">My Cart</a></button>
+        <button><a href="/total">Check Out</a></button>
+        <form action="/logout" method="POST">
+            <button type="submit">Log Out</button>
+        </form>
     </body>
 </html> 

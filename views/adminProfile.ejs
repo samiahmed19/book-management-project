@@ -1,0 +1,22 @@
+<html>
+    <head>
+        <title>Admin Profile page</title>
+        <link rel="stylesheet" href="/styles/adminProfile.css">
+    </head>
+    <body>
+        <div class="h1">
+            <h1>Admin Profile Page</h1>
+            <div class="details">
+                <p>Name: <%=user_details.name%></p>
+                <p>Email: <%=user_details.email%></p>
+            </div>
+            <form action="/logout" method="POST">
+                <button type="submit">Log Out</button>
+            </form>
+        </div>
+        
+        <button><a href="/all-books">All books</a></button>
+        <button><a href="/get-add-book">Add Books</a></button>
+        
+    </body>
+</html> 
