@@ -419,77 +419,21 @@ exports.updateQuantity = async(req,res)=>{
     }
 }
 
-
-
-  
 //update book
-exports.updateBook = async (req, res) => {
-    try {
-      const { title, price, bookId } = req.body;
-      const updatedDetails = await Books.findByIdAndUpdate(bookId, { title, price });
-  
-      if (!updatedDetails) {
-        return res.status(404).render('error', { message: 'Book not found' });
-      }
-      return res.redirect('/all-books');
-    } catch (err) {
-      console.error('Error in updating book:', err);
-      return res.status(500).render('error', { message: 'Internal Server Error' });
+exports.updateBook = async(req,res)=>{
+    try{
+        const {title,price,bookId} = req.body;
+        // console.log(title,price,bookId);
+        const updatedDetails = await Books.findByIdAndUpdate(bookId,{title,price});
+        // console.log(updatedDetails);
+        return res.redirect("/all-books");
     }
-  };
-// Add a new method to display the "Update Book" page
-exports.getUpdateBook = async (req, res) => {
-    try {
-      const bookId = req.query._id;
-      const bookDetails = await Books.findById(bookId);
-      // Check if the book details were found
-      if (!bookDetails) {
-            return res.status(404).render('error', { message: 'Book not found' });
-        }
-
-    // Render the "Update Book" page with the book details
-        res.render('update-book', { bookDetails });
-
-    } catch (err) {
-      console.error('Error in loading update book page:', err);
-      res.redirect('/all-books');
+    catch(err){
+        console.log("Error Occurred");
     }
-  };
+}
 
-exports.updateCart = async (req, res) => {
-  try {
-    // Check if the user is logged in
-    if (!req.session.user) {
-      return res.redirect('/my-cart'); // Redirect if the user is not logged in
-    }
 
-    // Extract book data and quantity from the request body
-    const { book_data, quantity } = req.body;
-    const bookData = JSON.parse(book_data);
-
-    // Validate the quantity (you may want to add more validation)
-    if (quantity < 1) {
-      return res.status(400).json({ error: 'Invalid quantity' });
-    }
-
-    // Find the book in the user's cart and update its quantity
-    const updatedBook = await UserBook.findByIdAndUpdate(
-      bookData._id,
-      { quantity },
-      { new: true }
-    );
-
-    if (!updatedBook) {
-      return res.status(404).json({ error: 'Book not found in cart' });
-    }
-
-    return res.redirect('/my-cart');
-  } catch (err) {
-    console.error('Error in updating cart:', err);
-    // Handle the error appropriately
-    return res.status(500).json({ error: 'Internal Server Error', details: err.message });
-  }
-};
 exports.getTotal = async (req, res) => {
     try {
       if (!req.session.user) {
@@ -521,42 +465,3 @@ exports.getTotal = async (req, res) => {
       console.error(err);
     }
   };
-  
-
-
-
-
-  exports.updateCartQuantity = async (req, res) => {
-    try {
-      if (!req.session.user) {
-        return res.status(401).json({ error: 'User is not logged in' });
-      }
-      for (const key in req.body) {
-        if (key.startsWith('quantity_')) {
-          const bookId = key.replace('quantity_', '');
-          const newQuantity = req.body[key];
-  
-          // Assuming you have a UserBooks model for the user's cart
-          const UserBooks = require('../models/userBook');
-  
-          // Find the book in the user's cart and update its quantity
-          const updatedBook = await UserBooks.findOneAndUpdate(
-            { _id: bookId, userId: req.session.user._id }, // Assuming you have a userId field in your UserBooks model
-            { quantity: newQuantity },
-            { new: true }
-          );
-  
-          if (!updatedBook) {
-            return res.status(404).json({ error: 'Book not found in cart' });
-          }
-  
-        }
-      }
-      res.redirect('/my-carts');
-    } catch (err) {
-      console.error( err);
-    }
-  };
-
-
-  

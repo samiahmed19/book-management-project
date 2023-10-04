@@ -1,30 +1,31 @@
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-image: url('/images/admin.jpg');
+    background-image: url("/images/admin.jpg");
     background-size: cover;
-    /* background-repeat: no-repeat; */
+    background-repeat: no-repeat;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+    margin: 0;
 }
 
-.form {
-    width: 400px;
-    margin: 0 auto;
+form {
+    background: lightgrey;
     padding: 20px;
     border-radius: 5px;
-    background-color: white;
-    box-shadow: 5px 5px 10px black;
-   
+    box-shadow: 5px 5px 5px black;
+    max-width: 500px;
+    text-align: center;
 }
 
-h1 { 
-    text-align: center;
+h1 {
     color: #333;
 }
 
-
-input[type="password"],
-input[type="email"] {
+input[type="email"],
+input[type="password"] {
     width: 100%;
     padding: 10px;
     margin-bottom: 15px;
@@ -33,55 +34,31 @@ input[type="email"] {
     outline: none;
 }
 
-button[type="submit"] {
-    width: 100%;
-    padding: 10px;
-    background-color: lightseagreen;
-    color: black;
+button {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 20px;
     border: none;
     border-radius: 3px;
     cursor: pointer;
-
+    transition: background-color 0.3s ease;
 }
 
-button[type="submit"]:hover {
-    background-color: #0056b3;
+button:hover {
+    background-color: #555;
 }
 
-
-input::placeholder {
-    color: slategray;
+div {
+    padding-top: 10px;
+    font-size: 14px;
+    color: #666;
 }
 
-
-body {
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+a {
+    color: purple;
+    text-decoration: none;
 }
 
-.password, .email{
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    position: relative;
+a:hover {
+    text-decoration: underline;
 }
-
-.password i, .email i{
-    font-size: 24px;
-    margin-right: 10px;
-}
-#eye{
-    position: absolute;
-    right: 5px;
-    cursor: pointer;
-    margin-top: 5px;
-}
-.password{
-    display: inline-block;
-    position: relative;
-    display: flex;
-}
-

@@ -58,16 +58,7 @@ Router.post('/update-quantity',userController.updateQuantity);
 
 //update book
 Router.post('/update-book',userController.updateBook);
-
-
-// Router.get('/get-update-book',userController.getUpdateBook)
-
-// update cart
-// Router.get('/update-quantity', userController.getUpdateQuantity);
-// Router.post('/update-cart-quantity', userController.updateCartQuantity);
-// Router.get('/get-update-cart',userController.getUpdateCart);
-
-Router.post('/update-cart-quantity',userController.updateCartQuantity)
+module.exports = Router
 
 Router.get('/total',userController.getTotal);
 
