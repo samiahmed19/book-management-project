@@ -168,21 +168,66 @@ exports.addBook = async(req,res)=>{
 }
 
 //books displaying code
-exports.getBooks = async(req,res)=>{
-    try{
+// exports.getBooks = async(req,res)=>{
+//     try{
+//         if (!req.session.user) {
+//             return res.redirect('/');
+//             // console.log("User not logged in");
+//         }
+//         const books = await Books.find({}).exec();
+//         res.render('getBook',{
+//             books_list:books
+//         });
+//     }
+//     catch(err){
+
+//     }
+// }
+exports.getBooks = async (req, res) => {
+    try {
         if (!req.session.user) {
             return res.redirect('/');
-            console.log("User not logged in");
         }
-        const books = await Books.find({}).exec();
-        res.render('getBook',{
-            books_list:books
-        });
-    }
-    catch(err){
 
+        const books = await Books.find({}).exec();
+        res.render('getBook', {
+            books_list: books,
+            user: req.session.user,
+        });
+    } catch (err) {
+        console.error(err);
     }
 }
+//adding reviews to books
+exports.addReview = async (req, res) => {
+    try {
+        if (!req.session.user) {
+            return res.status(401).json({ error: 'User is not logged in' });
+        }
+
+        const { bookId, rating, comment } = req.body;
+        const book = await Books.findById(bookId).exec();
+
+        if (!book) {
+            return res.json({ error: 'Book not found' });
+        }
+
+        const review = {
+            rating,
+            comment,
+        };
+
+        book.reviews.push(review);
+
+        await book.save();
+
+        return res.redirect('back');
+    } catch (err) {
+        res.json({ error: 'Error occurred while adding a review' });
+    }
+}
+
+
 
 //delete book
 exports.deleteBook = async(req,res)=>{
@@ -199,22 +244,23 @@ exports.deleteBook = async(req,res)=>{
 }
 
 //get Search book
-exports.getSearchBook = async(req,res)=>{
-    try{
-        const query = res.query.query;
+exports.getSearchBook = async (req, res) => {
+    try {
+        const query = req.query.query;
 
-        const searchResults = books_list.filter((book)=>{
-            return (
-                book.title.toLowerCase().includes(query.toLowerCase()) || book.author.toLowerCase().includes(query.toLowerCase())
-            );
-        });
 
-        res.render('search-results',{results:searchResults});
-    }
-    catch(err){
+        const searchResults = await Books.find({
+            $or: [
+                { title: { $regex: new RegExp(query, 'i') } }, 
+                { author: { $regex: new RegExp(query, 'i') } }, 
+            ]
+        }).exec();
 
+        res.render('search-results', { results: searchResults });
+    } catch (err) {
     }
 }
+
 
 //addtocart logic
 exports.addToCart = async(req,res)=>{
@@ -398,6 +444,9 @@ exports.updateQuantity = async(req,res)=>{
         const bookData = JSON.parse(book_data);
         const bookId = bookData._id;
         console.log(bookData);
+        if(quantity>bookData.quantity){
+            return res.status(401).json({error:'Entered quantity is more than available'});
+        }
         book_data.quantity = quantity;
         function generateUserCollectionName(userid){
             return `books_${userid}`;
@@ -412,7 +461,7 @@ exports.updateQuantity = async(req,res)=>{
             return res.status(404).json({ error: 'Book not found' });
         }
 
-        return res.redirect('/my-cart');
+        return res.redirect('/my-carts');
     }
     catch(err){
         console.log("Error occured",err);

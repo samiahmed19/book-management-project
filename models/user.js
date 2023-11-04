@@ -20,7 +20,14 @@ const userSchema = new mongoose.Schema({
     isAdmin:{
       type:Boolean,
       default:false
-    }
+    },
+    reviews: [
+      {
+          user: String,
+          rating: Number, 
+          comment: String,
+      }
+  ],
 });
 
 userSchema.pre('save', async function (next) {

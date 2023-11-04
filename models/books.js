@@ -20,7 +20,14 @@ const booksSchema = new mongoose.Schema({
     quantity:{
         type:Number,
         required:true
-    }
+    },
+    reviews: [
+        {
+            user: String,
+            rating: Number, 
+            comment: String,
+        }
+    ],
 });
 
 const BooksData = mongoose.model('BooksData',booksSchema);

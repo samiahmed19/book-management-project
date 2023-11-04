@@ -1,0 +1,51 @@
+<html>
+
+<head>
+    <title>Document</title>
+</head>
+
+<body>
+
+    <% if (book.reviews.length> 0) { %>
+        <h3>Reviews for <%= book.title %>
+        </h3>
+        <ul>
+            <% book.reviews.forEach((review)=> { %>
+                <li>
+                    <strong>Rating: <%= review.rating %></strong>
+                    <p>
+                        <%= review.comment %>
+                    </p>
+                    <p>By: <%= review.user %>
+                    </p>
+                </li>
+                <% }); %>
+        </ul>
+        <% } else { %>
+            <p>No reviews available for <%= book.title %>
+            </p>
+            <% } %>
+
+                <!-- Form to add a new review -->
+                <h3>Add a Review</h3>
+                <form action="profile/add-review" method="POST">
+                    <input type="hidden" name="bookId" value="<%= book._id %>">
+                    <label for="rating">Rating:</label>
+                    <select name="rating" id="rating">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                    <br>
+                    <label for="comment">Comment:</label>
+                    <textarea name="comment" id="comment" rows="4" cols="50"></textarea>
+                    <br>
+                    <input type="submit" value="Submit Review">
+                </form>
+
+
+</body>
+
+</html>

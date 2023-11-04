@@ -4,20 +4,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cart</title>
+    <link rel="stylesheet" href="/styles/total.css">
 </head>
 <body>
-    <h1>Your Cart</h1>
+    <header class="header">
+        <h1>Your Cart</h1>
+        <a href="/my-carts" class="back-button">Back to Cart</a>
+    </header>
 
-    <ul>
-        <% for (const book of books) { %>
-            <li>
-                <%= book.title %> - Quantity: <%= book.quantity %> - Price per unit: $<%= book.price %> - Subtotal: $<%= book.quantity * book.price %>
-            </li>
-        <% } %>
-    </ul>
+    <main>
+        <ul class="cart-list">
+            <% for (const book of books) { %>
+                <li class="cart-item">
+                    <span class="item-title"><%= book.title %></span>
+                    <span class="item-quantity">Quantity: <%= book.quantity %></span>
+                    <span class="item-price">Price per unit: $<%= book.price %></span>
+                    <span class="item-subtotal">Subtotal: $<%= book.quantity * book.price %></span>
+                </li>
+            <% } %>
+        </ul>
 
-    <p>Total Price: $<%= total_price %></p>
+        <p class="total-price">Total Price: $<%= total_price %></p>
+    </main>
 
-    <a href="/my-carts">Back to Cart</a>
+
+
+
+
+
+
 </body>
 </html>

@@ -58,9 +58,12 @@ Router.post('/update-quantity',userController.updateQuantity);
 
 //update book
 Router.post('/update-book',userController.updateBook);
-module.exports = Router
+
+// Adding add reviews
+Router.post('/profile/add-review', userController.addReview);
 
 Router.get('/total',userController.getTotal);
+
 
 
 // Update your router
